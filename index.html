@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dentin Clínica Dental — Barrio Salamanca, Madrid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1565C0;
+      --blue-light: #1E88E5;
+      --blue-dark: #0D47A1;
+      --white: #FFFFFF;
+      --gray: #F5F5F5;
+      --gray-mid: #E0E0E0;
+      --text: #2C2C2C;
+      --text-light: #666;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(21,101,192,0.1);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800; font-size: 1.4rem;
+      color: var(--blue);
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta {
+      background: var(--blue); color: var(--white);
+      padding: 0.6rem 1.4rem; border-radius: 25px;
+      font-size: 0.9rem; font-weight: 600; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--text); transition: 0.3s; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, rgba(13,71,161,0.85) 0%, rgba(21,101,192,0.7) 100%),
+        url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1600&q=80') center/cover no-repeat;
+      display: flex; align-items: center;
+      padding: 100px 5% 60px;
+      position: relative;
+    }
+    .hero-content { max-width: 620px; color: var(--white); }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.4rem 1rem; border-radius: 20px;
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 em { font-style: normal; color: rgba(255,255,255,0.8); }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      line-height: 1.7;
+      opacity: 0.92;
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--white); color: var(--blue);
+      padding: 0.9rem 2rem; border-radius: 30px;
+      font-weight: 700; font-size: 0.95rem; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.7); color: var(--white);
+      padding: 0.9rem 2rem; border-radius: 30px;
+      font-weight: 600; font-size: 0.95rem; text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.15); border-color: var(--white); }
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .stat { color: var(--white); }
+    .stat-number {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem; font-weight: 800; display: block;
+    }
+    .stat-label { font-size: 0.8rem; opacity: 0.8; margin-top: 0.1rem; }
+
+    /* SERVICES */
+    .services {
+      padding: 6rem 5%;
+      background: var(--gray);
+    }
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+    .section-tag {
+      display: inline-block;
+      color: var(--blue); font-size: 0.8rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      margin-bottom: 0.8rem;
+    }
+    .section-header h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 800; color: var(--text);
+      line-height: 1.2;
+    }
+    .section-header p { color: var(--text-light); margin-top: 0.8rem; font-size: 1.05rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(21,101,192,0.1); }
+    .service-icon {
+      width: 52px; height: 52px;
+      background: rgba(21,101,192,0.08);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+    .service-icon svg { width: 26px; height: 26px; stroke: var(--blue); fill: none; stroke-width: 1.5; }
+    .service-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem; font-weight: 700;
+      margin-bottom: 0.5rem; color: var(--text);
+    }
+    .service-card p { font-size: 0.9rem; color: var(--text-light); line-height: 1.6; }
+
+    /* WHY US */
+    .why-us {
+      padding: 6rem 5%;
+      background: var(--white);
+    }
+    .why-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .why-image {
+      position: relative; border-radius: 20px; overflow: hidden;
+      height: 480px;
+    }
+    .why-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .why-image:hover img { transform: scale(1.03); }
+    .why-badge-img {
+      position: absolute; bottom: 1.5rem; left: 1.5rem;
+      background: var(--blue); color: var(--white);
+      padding: 0.8rem 1.2rem; border-radius: 12px;
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+    }
+    .why-content .section-header { text-align: left; }
+    .why-content .section-header p { margin-left: 0; }
+    .why-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.2rem; }
+    .why-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .why-check {
+      width: 28px; height: 28px; min-width: 28px;
+      background: rgba(21,101,192,0.1); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 0.1rem;
+    }
+    .why-check svg { width: 14px; height: 14px; stroke: var(--blue); fill: none; stroke-width: 2.5; }
+    .why-item h4 { font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .why-item p { font-size: 0.88rem; color: var(--text-light); line-height: 1.5; }
+
+    /* TESTIMONIALS */
+    .testimonials {
+      padding: 6rem 5%;
+      background: var(--blue);
+    }
+    .testimonials .section-header h2 { color: var(--white); }
+    .testimonials .section-tag { color: rgba(255,255,255,0.7); }
+    .testimonials .section-header p { color: rgba(255,255,255,0.7); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; max-width: 900px; margin: 0 auto;
+    }
+    .testimonial-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px; padding: 1.8rem;
+      color: var(--white);
+    }
+    .stars { color: #FFD54F; font-size: 1.1rem; margin-bottom: 0.8rem; letter-spacing: 2px; }
+    .testimonial-card p { font-size: 0.93rem; line-height: 1.7; opacity: 0.92; font-style: italic; }
+    .testimonial-author { margin-top: 1.2rem; font-weight: 600; font-size: 0.88rem; opacity: 0.8; }
+
+    /* CONTACT */
+    .contact {
+      padding: 6rem 5%;
+      background: var(--gray);
+    }
+    .contact-inner {
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: 4rem; align-items: start;
+    }
+    .contact-info h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem; font-weight: 800; margin-bottom: 1rem;
+    }
+    .contact-info p { color: var(--text-light); line-height: 1.7; margin-bottom: 2rem; }
+    .contact-detail { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+    .contact-detail svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 2; }
+    .contact-detail a { color: var(--text); text-decoration: none; font-size: 0.95rem; }
+    .contact-detail a:hover { color: var(--blue); }
+    .contact-form { background: var(--white); padding: 2rem; border-radius: 16px; box-shadow: 0 2px 15px rgba(0,0,0,0.06); }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 0.8rem 1rem;
+      border: 1.5px solid var(--gray-mid); border-radius: 8px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text);
+      background: var(--white); outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--blue); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-submit {
+      width: 100%; padding: 0.9rem;
+      background: var(--blue); color: var(--white);
+      border: none; border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem; font-weight: 700; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .form-submit:hover { background: var(--blue-dark); transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      background: #0D1B2E; color: rgba(255,255,255,0.6);
+      padding: 2rem 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+      font-size: 0.85rem;
+    }
+    .footer-logo { font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--white); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .why-inner, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .why-image { height: 280px; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="nav">
+    <div class="nav-logo">Dentin <span>Dental</span></div>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#testimonios">Opiniones</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="tel:+34915755847" class="nav-cta">915 75 58 47</a>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        Barrio de Salamanca · Madrid
+      </div>
+      <h1>Tu sonrisa perfecta<br /><em>en el corazón</em><br />de Madrid</h1>
+      <p>Clínica dental de referencia en el Barrio de Salamanca. Más de 20 años cuidando tu salud bucodental con tecnología de última generación y un equipo especialista.</p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-primary">Solicitar cita</a>
+        <a href="tel:+34915755847" class="btn-outline">915 75 58 47</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">+20</span>
+          <span class="stat-label">Años de experiencia</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">+5000</span>
+          <span class="stat-label">Pacientes satisfechos</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">98%</span>
+          <span class="stat-label">Valoración positiva</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="servicios" class="services">
+    <div class="section-header">
+      <span class="section-tag">Nuestros servicios</span>
+      <h2>Tratamientos para una<br />sonrisa de 10</h2>
+      <p>Desde revisiones preventivas hasta implantes de alta complejidad. Todo bajo el mismo techo.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 4.5 6 8c0 3 1.5 5.5 3 7.5L10 20h4l1-4.5C16.5 13.5 18 11 18 8c0-3.5-2.5-6-6-6z"/><circle cx="12" cy="8" r="2"/></svg>
+        </div>
+        <h3>Implantes Dentales</h3>
+        <p>Solución permanente para dientes perdidos con la tecnología más avanzada. Resultados naturales y duraderos.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="10" rx="4"/><path d="M7 8V6a5 5 0 0110 0v2"/><line x1="3" y1="13" x2="21" y2="13"/></svg>
+        </div>
+        <h3>Ortodoncia</h3>
+        <p>Alineadores invisibles o brackets de última generación. Corrección discreta y efectiva para todas las edades.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3>Estética Dental</h3>
+        <p>Carillas, blanqueamiento y diseño de sonrisa. Transforma tu imagen de forma natural y profesional.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Periodoncia</h3>
+        <p>Diagnóstico y tratamiento de enfermedades de las encías. Prevención y solución de problemas periodontales.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z"/></svg>
+        </div>
+        <h3>Prótesis Dentales</h3>
+        <p>Prótesis fijas y removibles a medida. Estética y funcionalidad para recuperar tu calidad de vida.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h3>Urgencias Dentales</h3>
+        <p>Atención rápida para dolor agudo, fracturas o cualquier emergencia bucodental. Disponibles para ti.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="nosotros" class="why-us">
+    <div class="why-inner">
+      <div class="why-image">
+        <img src="https://images.unsplash.com/photo-1588776814546-1ffbb172d4a3?w=800&q=80" alt="Equipo Dentin Clínica Dental" loading="lazy" />
+        <div class="why-badge-img">
+          <div style="font-size:1.4rem">+20</div>
+          <div style="font-size:0.7rem;font-weight:400;opacity:0.9">años de excelencia</div>
+        </div>
+      </div>
+      <div class="why-content">
+        <div class="section-header">
+          <span class="section-tag">¿Por qué Dentin?</span>
+          <h2>Expertos en salud<br />bucodental integral</h2>
+          <p>En el corazón del Barrio de Salamanca, combinamos décadas de experiencia con la tecnología más avanzada.</p>
+        </div>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-check">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <h4>Equipo multidisciplinar especializado</h4>
+              <p>Implantólogos, ortodoncistas y especialistas en estética dental bajo el mismo techo.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-check">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <h4>Tecnología de vanguardia</h4>
+              <p>Scanner 3D, radiografía digital y diseño digital de sonrisa para diagnósticos precisos.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-check">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <h4>Tratamiento sin dolor</h4>
+              <p>Protocolo de sedación consciente y técnicas mínimamente invasivas para tu comodidad.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-check">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <h4>Financiación sin intereses</h4>
+              <p>Planes de pago flexibles para que la salud dental no sea un lujo. Presupuesto gratuito.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonios" class="testimonials">
+    <div class="section-header">
+      <span class="section-tag">Opiniones</span>
+      <h2>Lo que dicen nuestros pacientes</h2>
+      <p>Más de 5.000 familias confían en Dentin Clínica Dental.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Me hicieron los implantes hace dos años y el resultado es espectacular. El equipo es extremadamente profesional y te explican cada paso. 100% recomendable."</p>
+        <div class="testimonial-author">— María G., Madrid</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Llevé a toda mi familia. Desde el primer día se nota que saben lo que hacen. Las instalaciones son modernas y la atención, impecable."</p>
+        <div class="testimonial-author">— Carlos M., Barrio Salamanca</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Me pusieron carillas y quedé enamorada del resultado. Muy naturales, muy bien acabadas. Por fin tengo la sonrisa que siempre quise."</p>
+        <div class="testimonial-author">— Ana R., Retiro</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contacto" class="contact">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <h2>Reserva tu cita hoy</h2>
+        <p>Primera visita y diagnóstico gratuito. Nuestro equipo te atenderá en menos de 24 horas para confirmar tu cita.</p>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg>
+          <a href="tel:+34915755847">915 75 58 47</a>
+        </div>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <a href="#">Velázquez 12, 28001 Madrid</a>
+        </div>
+        <div class="contact-detail">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Lun-Vie: 9:00–20:00 · Sáb: 9:00–14:00</span>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3 style="font-family:'Montserrat',sans-serif;font-weight:700;margin-bottom:1.2rem;font-size:1.1rem;">Solicitar primera visita gratuita</h3>
+        <form>
+          <div class="form-group">
+            <label>Nombre y apellidos</label>
+            <input type="text" placeholder="Tu nombre completo" />
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" placeholder="6XX XXX XXX" />
+          </div>
+          <div class="form-group">
+            <label>Tratamiento de interés</label>
+            <select>
+              <option value="">Selecciona un tratamiento</option>
+              <option>Implantes dentales</option>
+              <option>Ortodoncia</option>
+              <option>Estética dental</option>
+              <option>Periodoncia</option>
+              <option>Prótesis</option>
+              <option>Revisión general</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Mensaje (opcional)</label>
+            <textarea placeholder="Cuéntanos brevemente tu caso..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Solicitar cita gratuita</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Dentin Dental</div>
+    <div>&copy; 2026 Dentin Clínica Dental. Barrio Salamanca, Madrid.</div>
+    <div>
+      <a href="#" style="color:inherit;margin-left:1rem;">Política de privacidad</a>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Form submit
+    document.querySelector('form').addEventListener('submit', e => {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Solicitud enviada — te llamamos pronto';
+      btn.style.background = '#2E7D32';
+      btn.disabled = true;
+    });
+  </script>
+</body>
+</html>
